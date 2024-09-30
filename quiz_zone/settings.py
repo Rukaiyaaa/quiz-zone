@@ -28,12 +28,13 @@ SECRET_KEY = 'django-insecure--83bqtw@u5_b&e25%zfdun8n=dtqs$c=^-m2g=3=z&2w96v#-3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,10 +85,22 @@ WSGI_APPLICATION = 'quiz_zone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres.hdvpujsjpwxjcyivlsim',
+        'PASSWORD': 'DXAe8esjP@-xtyu',
+        'HOST': 'aws-0-ap-southeast-1.pooler.supabase.com',
+        'PORT': '6543'
     }
 }
 
@@ -137,6 +151,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
     BASE_DIR / 'quizes' / 'static'
 ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 
 # Default primary key field type
